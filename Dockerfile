@@ -31,7 +31,7 @@ RUN echo "APP_NAME=CarbonAI" > .env && \
     echo "APP_ENV=production" >> .env && \
     echo "APP_KEY=" >> .env && \
     echo "APP_DEBUG=false" >> .env && \
-    echo "APP_URL=http://localhost" >> .env && \
+    echo "APP_URL=https://carbonwallet-admin-xprl.onrender.com" >> .env && \
     echo "" >> .env && \
     echo "LOG_CHANNEL=stderr" >> .env && \
     echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env && \
@@ -69,7 +69,7 @@ RUN mkdir -p database && touch database/database.sqlite
 # Generate Laravel key and run migrations
 RUN php artisan key:generate --force
 RUN php artisan migrate --force
-RUN php artisan storage:link
+RUN php artisan storage:link --force
 
 # Set permissions
 RUN chmod -R 755 storage bootstrap/cache

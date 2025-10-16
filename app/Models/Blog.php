@@ -43,7 +43,7 @@ class Blog extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return secure_asset('storage/' . $this->image);
         }
         return null;
     }

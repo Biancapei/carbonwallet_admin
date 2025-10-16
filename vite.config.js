@@ -10,4 +10,13 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        hmr: {
+            host: 'localhost',
+        },
+    },
+    build: {
+        outDir: 'public/build',
+        assetsDir: 'assets',
+    },
 });
