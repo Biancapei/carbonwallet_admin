@@ -1,17 +1,11 @@
 services:
   - type: web
     name: carbonwallet-admin
-    env: php
+    env: node
     plan: free
     region: oregon
     branch: main
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      npm install
-      npm run build
-      php artisan key:generate --force
-      php artisan migrate --force
-      php artisan storage:link
+    buildCommand: ./build.sh
     startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
     envVars:
       - key: APP_ENV
