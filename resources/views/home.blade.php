@@ -78,11 +78,9 @@
                             @foreach($blogs as $index => $blog)
                                 <div class="carousel-slide px-4">
                                     <div class="carousel-card bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg overflow-hidden mx-auto">
-                                        @if($blog->image)
-                                            <div class="w-full">
-                                                <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" class="w-full h-64 object-cover">
-                                            </div>
-                                        @endif
+                                        <div class="w-full">
+                                            <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" class="w-full h-64 object-cover">
+                                        </div>
                                         <div class="p-8 w-full">
                                             <h3 class="text-2xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-2">{{ $blog->title }}</h3>
                                             <p class="text-[#706f6c] dark:text-[#A1A09A] leading-relaxed mb-2">

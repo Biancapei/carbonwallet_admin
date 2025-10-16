@@ -542,14 +542,15 @@ body {
 }
 
 .read-more-btn {
-    color: #fff;
+    color: #f53003;
     text-decoration: none;
     font-size: 1rem;
-    transition: text-decoration 0.3s;
+    font-weight: 600;
+    transition: all 0.3s;
 }
 
 .read-more-btn:hover {
-    color: #16d3ca;
+    color: #ff4433;
     text-decoration: underline;
 }
 
