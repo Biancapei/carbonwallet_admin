@@ -1,15 +1,21 @@
 FROM php:8.2-cli-alpine
 
-# Install Node.js
-RUN apk add --no-cache nodejs npm
+# Install Node.js and required dependencies for PHP extensions
+RUN apk add --no-cache \
+    nodejs npm \
+    oniguruma-dev \
+    libxml2-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libzip-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Install additional required extensions
-RUN apk add --no-cache \
-    libxml2-dev \
-    && docker-php-ext-install dom xml simplexml
+# Install DOM/XML extensions
+RUN docker-php-ext-install dom xml simplexml
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
