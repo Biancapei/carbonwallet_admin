@@ -47,10 +47,10 @@
                                         </td>
                                         <td>
                                             <div class="actions" style="display: flex; gap: 10px;">
-                                                <a href="{{ route('admin.edit', $blog) }}" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                                                <a href="{{ route('admin.edit', $blog->id) }}" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
                                                     Edit
                                                 </a>
-                                                <form method="POST" action="{{ route('admin.destroy', $blog) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this blog post?')">
+                                                <form method="POST" action="{{ route('admin.destroy', $blog->id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this blog post?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">

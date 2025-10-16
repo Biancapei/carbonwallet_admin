@@ -339,9 +339,9 @@ body {
 }
 
 .editor-btn.active {
-    background: #dc2626;
+    background: #16d3ca;
     color: white;
-    border-color: #dc2626;
+    border-color: #16d3ca;
 }
 
 .editor-btn i {
@@ -542,7 +542,7 @@ body {
 }
 
 .read-more-btn {
-    color: #f53003;
+    color: #fff;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
@@ -550,7 +550,7 @@ body {
 }
 
 .read-more-btn:hover {
-    color: #ff4433;
+    color: #16d3ca;
     text-decoration: underline;
 }
 
@@ -640,7 +640,7 @@ body {
 }
 
 .back-button:hover {
-    color: #b91c1c;
+    color: #16d3ca;
 }
 
 .related-posts {

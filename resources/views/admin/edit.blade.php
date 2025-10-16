@@ -10,7 +10,7 @@
     </div>
 
     <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <form method="POST" action="{{ route('admin.update', $blog) }}" enctype="multipart/form-data" style="padding: 30px;">
+        <form method="POST" action="{{ route('admin.update', $blog->id) }}" enctype="multipart/form-data" style="padding: 30px;">
             @csrf
             @method('PUT')
 

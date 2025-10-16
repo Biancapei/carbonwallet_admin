@@ -40,7 +40,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::get('/create', [AdminController::class, 'create'])->name('create');
     Route::post('/', [AdminController::class, 'store'])->name('store');
-    Route::get('/{blog}/edit', [AdminController::class, 'edit'])->name('edit');
-    Route::put('/{blog}', [AdminController::class, 'update'])->name('update');
-    Route::delete('/{blog}', [AdminController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}/edit', [AdminController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [AdminController::class, 'update'])->name('update');
+    Route::delete('/{id}', [AdminController::class, 'destroy'])->name('destroy');
 });
