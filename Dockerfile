@@ -32,6 +32,8 @@ RUN echo "APP_NAME=CarbonAI" > .env && \
     echo "APP_KEY=" >> .env && \
     echo "APP_DEBUG=false" >> .env && \
     echo "APP_URL=https://carbonwallet-admin-xprl.onrender.com" >> .env && \
+    echo "FORCE_HTTPS=true" >> .env && \
+    echo "ASSET_URL=https://carbonwallet-admin-xprl.onrender.com" >> .env && \
     echo "" >> .env && \
     echo "LOG_CHANNEL=stderr" >> .env && \
     echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env && \
