@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: carbonwallet-admin
+    env: php
+    plan: free
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      npm install
+      npm run build
+      php artisan key:generate --force
+      php artisan migrate --force
+      php artisan storage:link
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /opt/render/project/src/database/database.sqlite
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: MAIL_MAILER
+        value: log
+
+  - type: pserv
+    name: carbonwallet-admin-db
+    env: sqlite
+    plan: free
+    disk:
+      name: database
+      mountPath: /opt/render/project/src/database
