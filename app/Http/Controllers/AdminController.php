@@ -47,51 +47,68 @@ class AdminController extends Controller
         return redirect()->route('admin.index')->with('success', 'Blog post created successfully!');
     }
 
-    public function edit(Blog $blog)
+    public function edit($id)
     {
-        return view('admin.edit', compact('blog'));
+        try {
+            $blog = Blog::findOrFail($id);
+            return view('admin.edit', compact('blog'));
+        } catch (\Exception $e) {
+            abort(404, 'Blog post not found');
+        }
     }
 
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_published' => 'boolean'
-        ]);
+        try {
+            $blog = Blog::findOrFail($id);
+            
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string|max:255',
+                'content' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'is_published' => 'boolean'
+            ]);
 
-        $data = $request->only(['title', 'description', 'content', 'is_published']);
-        $data['slug'] = Str::slug($request->title);
+            $data = $request->only(['title', 'description', 'content', 'is_published']);
+            $data['slug'] = Str::slug($request->title);
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($blog->image) {
+                    Storage::disk('public')->delete($blog->image);
+                }
+
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $imagePath = $image->storeAs('blog-images', $imageName, 'public');
+                $data['image'] = $imagePath;
+            }
+
+            $blog->update($data);
+
+            return redirect()->route('admin.index')->with('success', 'Blog post updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.index')->with('error', 'Blog post not found or update failed.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $blog = Blog::findOrFail($id);
+            
+            // Delete image if exists
             if ($blog->image) {
                 Storage::disk('public')->delete($blog->image);
             }
 
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = $image->storeAs('blog-images', $imageName, 'public');
-            $data['image'] = $imagePath;
+            $blog->delete();
+
+            return redirect()->route('admin.index')->with('success', 'Blog post deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.index')->with('error', 'Blog post not found or deletion failed.');
         }
-
-        $blog->update($data);
-
-        return redirect()->route('admin.index')->with('success', 'Blog post updated successfully!');
-    }
-
-    public function destroy(Blog $blog)
-    {
-        // Delete image if exists
-        if ($blog->image) {
-            Storage::disk('public')->delete($blog->image);
-        }
-
-        $blog->delete();
-
-        return redirect()->route('admin.index')->with('success', 'Blog post deleted successfully!');
     }
 }
