@@ -6,9 +6,12 @@
     <title>Admin Panel - {{ config('app.name', 'CarbonAI') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-    @if(app()->environment('production'))
-        <link rel="stylesheet" href="https://carbonwallet-admin-xprl.onrender.com/build/assets/app-CdEEPK_2.css">
-        <script src="https://carbonwallet-admin-xprl.onrender.com/build/assets/app-Bj43h_rG.js"></script>
+    @php
+        $assets = \App\Helpers\AssetHelper::getViteAssets();
+    @endphp
+    @if(app()->environment('production') && $assets['css'] && $assets['js'])
+        <link rel="stylesheet" href="{{ $assets['css'] }}">
+        <script src="{{ $assets['js'] }}"></script>
     @else
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
