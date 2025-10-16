@@ -29,23 +29,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Set working directory
 WORKDIR /app
 
-# Copy package files first for better caching
-COPY package*.json ./
+# Copy all files
+COPY . .
 
 # Install Node.js dependencies
 RUN npm install
 
-# Copy composer files
-COPY composer.json composer.lock ./
+# Build assets first
+RUN npm run build
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
-
-# Copy application code
-COPY . .
-
-# Build assets
-RUN npm run build
 
 # Generate Laravel key and run migrations
 RUN php artisan key:generate --force
