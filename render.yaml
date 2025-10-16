@@ -3,7 +3,9 @@ services:
     name: carbonwallet-admin
     env: php
     plan: free
-    buildCommand: composer install --no-dev --optimize-autoloader && npm install && npm run build && php artisan key:generate --force && php artisan migrate --force && php artisan storage:link
+    region: oregon
+    branch: main
+    buildCommand: composer install --no-dev --optimize-autoloader
     startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
     envVars:
       - key: APP_ENV
@@ -24,11 +26,3 @@ services:
         value: sync
       - key: MAIL_MAILER
         value: log
-
-  - type: pserv
-    name: carbonwallet-admin-db
-    env: sqlite
-    plan: free
-    disk:
-      name: database
-      mountPath: /opt/render/project/src/database
