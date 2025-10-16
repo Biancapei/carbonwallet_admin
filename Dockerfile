@@ -18,6 +18,11 @@ RUN apk add --no-cache \
     php82-tokenizer \
     php82-openssl \
     php82-phar \
+    php82-session \
+    php82-iconv \
+    php82-dom \
+    php82-simplexml \
+    php82-libxml \
     curl
 
 # Create symbolic link for php command
