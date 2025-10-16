@@ -542,7 +542,7 @@ body {
 }
 
 .read-more-btn {
-    color: #fff;
+    color: #16d3ca;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
@@ -550,7 +550,7 @@ body {
 }
 
 .read-more-btn:hover {
-    color: #16d3ca;
+    color: #14b8a6;
     text-decoration: underline;
 }
 

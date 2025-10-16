@@ -39,15 +39,7 @@
                     <label for="email" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
                         Email Address
                     </label>
-                    <input type="email"
-                           id="email"
-                           name="email"
-                           value="{{ old('email') }}"
-                           autocomplete="email"
-                           class="w-full px-3 py-2 border border-gray-300 dark:border-[#3E3E3A] rounded-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#f53003] dark:focus:ring-[#FF4433] focus:border-transparent bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC]"
-                           placeholder="Enter your email"
-                           required
-                           autofocus>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" autocomplete="email" class="w-full px-3 py-2 border border-gray-300 dark:border-[#3E3E3A] rounded-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16d3ca] dark:focus:ring-[#16d3ca] focus:border-transparent bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC]" placeholder="Enter your email"required autofocus>
                 </div>
 
                 <div class="mb-6">
@@ -58,7 +50,7 @@
                            id="password"
                            name="password"
                            autocomplete="current-password"
-                           class="w-full px-3 py-2 border border-gray-300 dark:border-[#3E3E3A] rounded-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#f53003] dark:focus:ring-[#FF4433] focus:border-transparent bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC]"
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-[#3E3E3A] rounded-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16d3ca] dark:focus:ring-[#16d3ca] focus:border-transparent bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC]"
                            placeholder="Enter your password"
                            required>
                 </div>
