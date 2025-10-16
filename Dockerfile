@@ -26,6 +26,15 @@ WORKDIR /app
 # Copy all files
 COPY . .
 
+# Create .env file for Laravel
+RUN cp .env.example .env
+
+# Set environment variables for Docker
+RUN echo "APP_ENV=production" >> .env && \
+    echo "APP_DEBUG=false" >> .env && \
+    echo "DB_CONNECTION=sqlite" >> .env && \
+    echo "DB_DATABASE=/app/database/database.sqlite" >> .env
+
 # Install Node.js dependencies
 RUN npm install
 
@@ -34,6 +43,9 @@ RUN npm run build
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
+
+# Create database directory and file
+RUN mkdir -p database && touch database/database.sqlite
 
 # Generate Laravel key and run migrations
 RUN php artisan key:generate --force
