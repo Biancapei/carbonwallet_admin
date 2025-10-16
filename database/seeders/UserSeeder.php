@@ -14,11 +14,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@carbonwallet.com',
-            'password' => Hash::make('password123'),
-            'email_verified_at' => now(),
-        ]);
+        // Update or create admin user
+        User::updateOrCreate(
+            ['email' => 'admin@carbonwallet.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('Password123'),
+                'email_verified_at' => now(),
+            ]
+        );
     }
 }

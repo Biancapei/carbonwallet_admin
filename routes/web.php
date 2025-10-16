@@ -24,7 +24,7 @@ Route::post('/login', function (\Illuminate\Http\Request $request) {
     }
 
     return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
+        'email' => 'Invalid credentials. Please check your email and password.',
     ])->onlyInput('email');
 });
 
