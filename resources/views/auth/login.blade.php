@@ -9,7 +9,7 @@
     @php
         $assets = \App\Helpers\AssetHelper::getViteAssets();
     @endphp
-    @if(app()->environment('production') && $assets['css'] && $assets['js'])
+    @if($assets['css'] && $assets['js'])
         <link rel="stylesheet" href="{{ $assets['css'] }}">
         <script src="{{ $assets['js'] }}"></script>
     @else

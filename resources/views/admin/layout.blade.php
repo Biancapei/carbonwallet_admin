@@ -9,20 +9,20 @@
     @php
         $assets = \App\Helpers\AssetHelper::getViteAssets();
     @endphp
-    @if(app()->environment('production') && $assets['css'] && $assets['js'])
+    @if($assets['css'] && $assets['js'])
         <link rel="stylesheet" href="{{ $assets['css'] }}">
         <script src="{{ $assets['js'] }}"></script>
     @else
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
-    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ app()->environment('production') ? secure_asset('css/style.css') : asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo" style="justify-content: center; display: flex;">
-            <img src="{{ secure_asset('images/logo.svg') }}" class="logo-img">
+            <img src="{{ app()->environment('production') ? secure_asset('images/logo.svg') : asset('images/logo.svg') }}" class="logo-img">
         </div>
 
         <nav class="sidebar-nav">

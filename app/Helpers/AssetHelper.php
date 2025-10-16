@@ -6,6 +6,14 @@ class AssetHelper
 {
     public static function getViteAssets()
     {
+        // In local development, always return null to use @vite directive
+        if (app()->environment('local', 'development')) {
+            return [
+                'css' => null,
+                'js' => null
+            ];
+        }
+        
         $manifestPath = public_path('build/manifest.json');
         
         if (!file_exists($manifestPath)) {
@@ -16,6 +24,13 @@ class AssetHelper
         }
         
         $manifest = json_decode(file_get_contents($manifestPath), true);
+        
+        if (!$manifest) {
+            return [
+                'css' => null,
+                'js' => null
+            ];
+        }
         
         return [
             'css' => isset($manifest['resources/css/app.css']) ? 

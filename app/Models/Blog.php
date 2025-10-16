@@ -43,7 +43,9 @@ class Blog extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return secure_asset('storage/' . $this->image);
+            return app()->environment('production') ? 
+                secure_asset('storage/' . $this->image) : 
+                asset('storage/' . $this->image);
         }
         // Return a placeholder image if no image is set - use HTTPS
         return 'https://picsum.photos/400/200?random=' . $this->id;
