@@ -18,11 +18,6 @@ RUN apk add --no-cache \
     php82-tokenizer \
     php82-openssl \
     php82-phar \
-    php82-session \
-    php82-iconv \
-    php82-dom \
-    php82-simplexml \
-    php82-libxml \
     curl
 
 # Create symbolic link for php command
@@ -44,7 +39,7 @@ RUN npm install
 RUN npm run build
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-session --ignore-platform-req=ext-iconv --ignore-platform-req=ext-dom
 
 # Generate Laravel key and run migrations
 RUN php artisan key:generate --force
