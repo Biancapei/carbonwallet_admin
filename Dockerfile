@@ -1,27 +1,15 @@
-FROM node:20-alpine
+FROM php:8.2-cli-alpine
 
-# Install PHP and required extensions
+# Install Node.js
+RUN apk add --no-cache nodejs npm
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Install additional required extensions
 RUN apk add --no-cache \
-    php82 \
-    php82-cli \
-    php82-common \
-    php82-mysqli \
-    php82-zip \
-    php82-gd \
-    php82-mbstring \
-    php82-curl \
-    php82-xml \
-    php82-bcmath \
-    php82-pdo \
-    php82-pdo_mysql \
-    php82-fileinfo \
-    php82-tokenizer \
-    php82-openssl \
-    php82-phar \
-    curl
-
-# Create symbolic link for php command
-RUN ln -sf /usr/bin/php82 /usr/bin/php
+    libxml2-dev \
+    && docker-php-ext-install dom xml simplexml
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -39,7 +27,7 @@ RUN npm install
 RUN npm run build
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-session --ignore-platform-req=ext-iconv --ignore-platform-req=ext-dom
+RUN composer install --no-dev --optimize-autoloader
 
 # Generate Laravel key and run migrations
 RUN php artisan key:generate --force
