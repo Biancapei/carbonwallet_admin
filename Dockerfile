@@ -71,6 +71,7 @@ RUN mkdir -p database && touch database/database.sqlite
 # Generate Laravel key and run migrations
 RUN php artisan key:generate --force
 RUN php artisan migrate --force
+RUN php artisan db:seed --force
 RUN php artisan storage:link --force
 
 # Set permissions

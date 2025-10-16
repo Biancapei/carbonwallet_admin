@@ -45,7 +45,8 @@ class Blog extends Model
         if ($this->image) {
             return secure_asset('storage/' . $this->image);
         }
-        return null;
+        // Return a placeholder image if no image is set
+        return 'https://via.placeholder.com/400x200/1f2937/ffffff?text=Blog+Image';
     }
 
     public function scopePublished($query)
