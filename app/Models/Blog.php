@@ -17,7 +17,12 @@ class Blog extends Model
         'image',
         'slug',
         'is_published',
-        'user_id'
+        'user_id',
+        'category',
+        'blog_status',
+        'meta_title',
+        'meta_description',
+        'meta_keywords'
     ];
 
     protected $casts = [
@@ -43,8 +48,8 @@ class Blog extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return app()->environment('production') ? 
-                secure_asset('storage/' . $this->image) : 
+            return app()->environment('production') ?
+                secure_asset('storage/' . $this->image) :
                 asset('storage/' . $this->image);
         }
         // Return a placeholder image if no image is set - use HTTPS

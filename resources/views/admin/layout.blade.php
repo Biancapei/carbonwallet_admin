@@ -21,10 +21,6 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="logo" style="justify-content: center; display: flex;">
-            <img src="{{ app()->environment('production') ? secure_asset('images/logo.svg') : asset('images/logo.svg') }}" class="logo-img">
-        </div>
-
         <nav class="sidebar-nav">
             <a href="{{ route('home') }}" class="nav-item">
                 <i class="fas fa-home"></i>
@@ -49,14 +45,20 @@
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <!-- Header -->
-        <div class="header">
+        <div class="admin-header">
             <div class="header-left">
-                <h1>CarbonAI</h1>
+                <button class="hamburger-btn" onclick="toggleSidebar()" id="toggleBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <img src="{{ app()->environment('production') ? secure_asset('images/logo.svg') : asset('images/logo.svg') }}" class="logo-img-header">
+                <div class="header-brand">
+                    <span class="header-title">{{ config('app.name', 'CarbonAI') }}</span>
+                </div>
             </div>
             <div class="header-right">
-                {{-- <span style="color: #374151; font-weight: 500;">Admin</span> --}}
-                <div>
-                    <i class="fas fa-user" style="color: white; font-size: 14px;"></i>
+                <span class="header-email">{{ auth()->user()->email }}</span>
+                <div class="header-avatar">
+                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </div>
             </div>
         </div>
@@ -88,14 +90,8 @@
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
 
-            sidebar.classList.toggle('sidebar-collapsed');
-            mainContent.classList.toggle('main-content-collapsed');
-
-            if (sidebar.classList.contains('sidebar-collapsed')) {
-                toggleBtn.className = 'fas fa-chevron-right';
-            } else {
-                toggleBtn.className = 'fas fa-chevron-left';
-            }
+            sidebar.classList.toggle('sidebar-hidden');
+            mainContent.classList.toggle('main-content-full');
         }
     </script>
 </body>

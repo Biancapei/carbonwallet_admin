@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'admin@carbonwallet.com'],
             [
-                'name' => 'Admin User',
+                'name' => 'Admin',
                 'password' => Hash::make('Password123'),
                 'email_verified_at' => now(),
             ]

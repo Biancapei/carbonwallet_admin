@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/blog', [HomeController::class, 'blogs'])->name('blog');
 Route::get('/article/{blog:slug}', [HomeController::class, 'show'])->name('article.show');
 
 // Auth routes

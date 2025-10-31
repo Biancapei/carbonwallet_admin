@@ -38,11 +38,11 @@
 
     <!-- Article Content -->
     <div class="article-container">
-        <a href="{{ route('home') }}" class="back-button">
+        <a href="{{ route('blog') }}" class="back-button">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
-            Back to Home
+            Back to Blog
         </a>
 
         <article>

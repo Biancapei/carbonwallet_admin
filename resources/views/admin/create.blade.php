@@ -16,7 +16,7 @@
             <!-- Title -->
             <div style="margin-bottom: 24px;">
                 <label for="title" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
-                    Title *
+                    Blog Title
                 </label>
                 <input type="text"
                        id="title"
@@ -30,28 +30,142 @@
                 @enderror
             </div>
 
-            <!-- Description -->
+            <!-- Category and Status Row -->
+            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                <!-- Category -->
+                <div style="flex: 1;">
+                    <label for="category" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
+                        Category
+                    </label>
+                    <div class="custom-dropdown">
+                        <button type="button" class="custom-dropdown-toggle" id="categoryDropdownToggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                @php
+                                    $categoryMap = [
+                                        '' => 'Select a category (optional)',
+                                        'carbon-accounting' => 'Carbon Accounting',
+                                        'hospitality' => 'Hospitality & Tourism',
+                                        'net-zero' => 'Net Zero & Strategy',
+                                        'regulations' => 'Regulations & Disclosure'
+                                    ];
+                                    $oldCategory = old('category');
+                                @endphp
+                                {{ $categoryMap[$oldCategory ?? ''] ?? 'Select a category (optional)' }}
+                            </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <input type="hidden" id="category" name="category" value="{{ old('category') ?: '' }}">
+                        <ul class="dropdown-menu" id="categoryDropdownMenu">
+                            <li><a class="dropdown-item" href="#" data-value="">Select a category (optional)</a></li>
+                            <li><a class="dropdown-item" href="#" data-value="carbon-accounting">Carbon Accounting</a></li>
+                            <li><a class="dropdown-item" href="#" data-value="hospitality">Hospitality & Tourism</a></li>
+                            <li><a class="dropdown-item" href="#" data-value="net-zero">Net Zero & Strategy</a></li>
+                            <li><a class="dropdown-item" href="#" data-value="regulations">Regulations & Disclosure</a></li>
+                        </ul>
+                    </div>
+                    @error('category')
+                        <p style="margin-top: 4px; font-size: 12px; color: #dc2626;">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Blog Status -->
+                <div style="flex: 1;">
+                    <label for="blog_status" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
+                        Blog Status *
+                    </label>
+                    <div class="custom-dropdown">
+                        <button type="button" class="custom-dropdown-toggle" id="blogStatusDropdownToggle" aria-expanded="false">
+                            <span class="dropdown-text">
+                                @php
+                                    $statusMap = [
+                                        'draft' => 'Draft',
+                                        'published' => 'Published',
+                                        'deleted' => 'Deleted'
+                                    ];
+                                    $oldStatus = old('blog_status', 'draft');
+                                @endphp
+                                {{ $statusMap[$oldStatus] ?? 'Draft' }}
+                            </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <input type="hidden" id="blog_status" name="blog_status" value="{{ old('blog_status', 'draft') }}">
+                        <ul class="dropdown-menu" id="blogStatusDropdownMenu">
+                            <li><a class="dropdown-item" href="#" data-value="draft">Draft</a></li>
+                            <li><a class="dropdown-item" href="#" data-value="published">Published</a></li>
+                            <li><a class="dropdown-item" href="#" data-value="deleted">Deleted</a></li>
+                        </ul>
+                    </div>
+                    @error('blog_status')
+                        <p style="margin-top: 4px; font-size: 12px; color: #dc2626;">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Meta Title -->
             <div style="margin-bottom: 24px;">
-                <label for="description" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
-                    Description *
+                <label for="meta_title" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
+                    Meta Title
                 </label>
                 <input type="text"
-                       id="description"
-                       name="description"
-                       value="{{ old('description') }}"
+                       id="meta_title"
+                       name="meta_title"
+                       value="{{ old('meta_title') }}"
                        style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; background: white; color: #374151; box-sizing: border-box;"
-                       placeholder="Enter blog post description"
-                       required>
-                @error('description')
+                       placeholder="Enter meta title for SEO">
+                @error('meta_title')
                     <p style="margin-top: 4px; font-size: 12px; color: #dc2626;">{{ $message }}</p>
                 @enderror
             </div>
 
-                   <!-- Cover Image -->
+            <!-- Meta Description -->
+            <div style="margin-bottom: 24px;">
+                <label for="meta_description" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
+                    Meta Description
+                </label>
+                <textarea id="meta_description"
+                          name="meta_description"
+                          rows="3"
+                          style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; background: white; color: #374151; resize: vertical; box-sizing: border-box;"
+                          placeholder="Enter meta description for SEO">{{ old('meta_description') }}</textarea>
+                @error('meta_description')
+                    <p style="margin-top: 4px; font-size: 12px; color: #dc2626;">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Meta Keywords -->
+            <div style="margin-bottom: 24px;">
+                <label for="meta_keywords_input" style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
+                    Meta Keywords
+                </label>
+
+                <!-- Tags Container -->
+                <div id="keywords-tags-container" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; min-height: 32px; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; background: white;">
+                    <!-- Tags will be displayed here -->
+                </div>
+
+                <!-- Hidden input to store keywords -->
+                <input type="hidden" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords') }}">
+
+                <!-- Input for adding new keywords -->
+                <input type="text"
+                       id="meta_keywords_input"
+                       style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; background: white; color: #374151; box-sizing: border-box;"
+                       placeholder="Type and press Enter to add keyword">
+                <!-- Counter -->
+                <p id="keywords-counter" style="margin-top: 4px; font-size: 12px; color: #6b7280; text-align: right;">15 keywords remaining</p>
+                @error('meta_keywords')
+                    <p style="margin-top: 4px; font-size: 12px; color: #dc2626;">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Banner Image -->
                    <div style="margin-bottom: 24px;">
                        <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
-                           Cover Image
+                           Banner Image
                        </label>
+                       <p style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">
+                           In JPEG or PNG format, Width (416px) Height (280px)
+                       </p>
                        <div style="display: flex; align-items: center; gap: 10px;">
                            <input type="file"
                                   id="image"
@@ -83,16 +197,46 @@
                        <!-- Rich Text Editor -->
                        <div class="rich-text-editor">
                            <div class="editor-toolbar">
+                               <!-- Paragraph/Block Format -->
+                               <select id="blockFormat" class="editor-dropdown" onchange="formatText('formatBlock', this.value)">
+                                   <option value="p">Paragraph</option>
+                                   <option value="h1">Heading 1</option>
+                                   <option value="h2">Heading 2</option>
+                                   <option value="h3">Heading 3</option>
+                                   <option value="h4">Heading 4</option>
+                                   <option value="h5">Heading 5</option>
+                                   <option value="h6">Heading 6</option>
+                               </select>
+
+                               <!-- Font Family -->
+                               <select id="fontFamily" class="editor-dropdown" onchange="formatText('fontName', this.value)">
+                                   <option value="System Font">System Font</option>
+                                   <option value="Arial, sans-serif">Arial</option>
+                                   <option value="Helvetica, sans-serif">Helvetica</option>
+                                   <option value="Georgia, serif">Georgia</option>
+                                   <option value="Times New Roman, serif">Times New Roman</option>
+                                   <option value="Courier New, monospace">Courier New</option>
+                                   <option value="Verdana, sans-serif">Verdana</option>
+                               </select>
+
                                <!-- Font Size -->
-                               <select id="fontSize" class="font-size-select" onchange="formatText('fontSize', this.value)">
-                                   <option value="12px">12px</option>
-                                   <option value="14px">14px</option>
-                                   <option value="16px" selected>16px</option>
-                                   <option value="18px">18px</option>
-                                   <option value="20px">20px</option>
-                                   <option value="24px">24px</option>
-                                   <option value="28px">28px</option>
-                                   <option value="32px">32px</option>
+                               <select id="fontSize" class="editor-dropdown" onchange="formatText('fontSize', this.value)">
+                                   <option value="1">8pt</option>
+                                   <option value="2">10pt</option>
+                                   <option value="3" selected>12pt</option>
+                                   <option value="4">14pt</option>
+                                   <option value="5">18pt</option>
+                                   <option value="6">24pt</option>
+                                   <option value="7">36pt</option>
+                               </select>
+
+                               <!-- Line Height -->
+                               <select id="lineHeight" class="editor-dropdown" onchange="applyLineHeight(this.value)">
+                                   <option value="1">1</option>
+                                   <option value="1.25">1.25</option>
+                                   <option value="1.5" selected>1.5</option>
+                                   <option value="1.75">1.75</option>
+                                   <option value="2">2</option>
                                </select>
 
                                <!-- Text Formatting -->
@@ -123,12 +267,24 @@
                                    <i class="fas fa-align-right"></i>
                                </button>
 
-                               <!-- Lists -->
+                               <!-- Numbered List -->
+                               <button type="button" class="editor-btn" onclick="formatText('insertOrderedList')" title="Numbered List">
+                                   <i class="fas fa-list-ol"></i>
+                               </button>
+
+                               <!-- Bullet List -->
                                <button type="button" class="editor-btn" onclick="formatText('insertUnorderedList')" title="Bullet List">
                                    <i class="fas fa-list-ul"></i>
                                </button>
-                               <button type="button" class="editor-btn" onclick="formatText('insertOrderedList')" title="Numbered List">
-                                   <i class="fas fa-list-ol"></i>
+
+                               <!-- Decrease Indent -->
+                               <button type="button" class="editor-btn" onclick="formatText('outdent')" title="Decrease Indent">
+                                   <i class="fas fa-outdent"></i>
+                               </button>
+
+                               <!-- Increase Indent -->
+                               <button type="button" class="editor-btn" onclick="formatText('indent')" title="Increase Indent">
+                                   <i class="fas fa-indent"></i>
                                </button>
                            </div>
 
@@ -215,12 +371,31 @@ function formatText(command, value = null) {
     editor.focus();
 
     if (command === 'fontSize' && value) {
-        document.execCommand('fontSize', false, '7');
-        const fontElements = editor.querySelectorAll('font[size="7"]');
+        document.execCommand('fontSize', false, value);
+        const fontElements = editor.querySelectorAll('font');
+        const sizeMap = {
+            '1': '8pt',
+            '2': '10pt',
+            '3': '12pt',
+            '4': '14pt',
+            '5': '18pt',
+            '6': '24pt',
+            '7': '36pt'
+        };
         fontElements.forEach(el => {
-            el.removeAttribute('size');
-            el.style.fontSize = value;
+            if (el.getAttribute('size')) {
+                el.style.fontSize = sizeMap[el.getAttribute('size')] || '12pt';
+                el.removeAttribute('size');
+            }
         });
+    } else if (command === 'fontName' && value) {
+        if (value === 'System Font') {
+            document.execCommand('removeFormat', false);
+        } else {
+            document.execCommand('fontName', false, value);
+        }
+    } else if (command === 'formatBlock' && value) {
+        document.execCommand('formatBlock', false, value);
     } else if (command === 'foreColor' && value) {
         // For text color - direct approach
         document.execCommand('styleWithCSS', false, true);
@@ -233,10 +408,44 @@ function formatText(command, value = null) {
         document.execCommand('insertUnorderedList', false, null);
     } else if (command === 'insertOrderedList') {
         document.execCommand('insertOrderedList', false, null);
+    } else if (command === 'indent') {
+        document.execCommand('indent', false, null);
+    } else if (command === 'outdent') {
+        document.execCommand('outdent', false, null);
     } else {
         document.execCommand(command, false, value);
     }
 
+    updateContent();
+}
+
+function applyLineHeight(value) {
+    const editor = document.getElementById('content');
+    editor.focus();
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('styleWithCSS', false, true);
+    const selectedText = window.getSelection().toString();
+    if (selectedText) {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.style.lineHeight = value;
+            try {
+                range.surroundContents(span);
+            } catch (e) {
+                const contents = range.extractContents();
+                span.appendChild(contents);
+                range.insertNode(span);
+            }
+        }
+    } else {
+        document.execCommand('formatBlock', false, 'p');
+        const paragraphs = editor.querySelectorAll('p');
+        if (paragraphs.length > 0) {
+            paragraphs[paragraphs.length - 1].style.lineHeight = value;
+        }
+    }
     updateContent();
 }
 
@@ -424,6 +633,151 @@ document.querySelector('form').addEventListener('submit', function(e) {
         alert('Please enter some content for your blog post.');
         document.getElementById('content').focus();
     }
+});
+
+// Meta Keywords Tag Management
+(function() {
+    const keywordsInput = document.getElementById('meta_keywords_input');
+    const keywordsContainer = document.getElementById('keywords-tags-container');
+    const hiddenInput = document.getElementById('meta_keywords');
+    let keywords = [];
+
+    // Load existing keywords if any
+    const existingKeywords = hiddenInput.value;
+    if (existingKeywords) {
+        keywords = existingKeywords.split(',').map(k => k.trim()).filter(k => k);
+        renderTags();
+        updateCounter();
+    }
+
+    // Add keyword on Enter
+    keywordsInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const value = this.value.trim();
+            if (value && !keywords.includes(value)) {
+                if (keywords.length >= 15) {
+                    alert('Maximum of 15 keywords allowed');
+                    return;
+                }
+                keywords.push(value);
+                this.value = '';
+                renderTags();
+                updateHiddenInput();
+                updateCounter();
+            }
+        }
+    });
+
+    // Remove keyword
+    function removeKeyword(keyword) {
+        keywords = keywords.filter(k => k !== keyword);
+        renderTags();
+        updateHiddenInput();
+        updateCounter();
+    }
+
+    // Render tags
+    function renderTags() {
+        keywordsContainer.innerHTML = '';
+        keywords.forEach(keyword => {
+            const tag = document.createElement('div');
+            tag.style.cssText = 'display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; color: #374151;';
+
+            const text = document.createElement('span');
+            text.textContent = keyword;
+
+            const removeBtn = document.createElement('span');
+            removeBtn.innerHTML = '×';
+            removeBtn.style.cssText = 'cursor: pointer; font-size: 18px; color: #6b7280; font-weight: bold; line-height: 1; margin-left: 4px;';
+            removeBtn.addEventListener('click', () => removeKeyword(keyword));
+
+            tag.appendChild(text);
+            tag.appendChild(removeBtn);
+            keywordsContainer.appendChild(tag);
+        });
+    }
+
+    // Update hidden input with comma-separated keywords
+    function updateHiddenInput() {
+        hiddenInput.value = keywords.join(',');
+    }
+
+    // Update counter display
+    function updateCounter() {
+        const counter = document.getElementById('keywords-counter');
+        const remaining = 15 - keywords.length;
+        counter.textContent = remaining + ' keywords remaining';
+        if (remaining <= 0) {
+            counter.style.color = '#dc2626';
+            counter.textContent = 'Maximum reached (15 keywords)';
+        } else if (remaining <= 3) {
+            counter.style.color = '#f59e0b';
+        } else {
+            counter.style.color = '#6b7280';
+        }
+    }
+
+    // Initialize counter
+    updateCounter();
+})();
+
+// Custom Dropdown Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.custom-dropdown-toggle').forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const dropdown = this.closest('.custom-dropdown');
+            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+            const isOpen = dropdownMenu.classList.contains('show');
+
+            // Close all
+            document.querySelectorAll('.custom-dropdown .dropdown-menu').forEach(function(menu) {
+                menu.classList.remove('show');
+            });
+            document.querySelectorAll('.custom-dropdown-toggle').forEach(function(t) {
+                t.setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isOpen) {
+                dropdownMenu.classList.add('show');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    // Item selection handlers
+    document.querySelectorAll('.custom-dropdown .dropdown-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const dropdown = this.closest('.custom-dropdown');
+            const toggle = dropdown.querySelector('.custom-dropdown-toggle');
+            const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+            const dropdownText = toggle.querySelector('.dropdown-text');
+
+            dropdownText.textContent = this.textContent;
+            hiddenInput.value = this.dataset.value;
+
+            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+            dropdownMenu.classList.remove('show');
+            toggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.custom-dropdown')) {
+            document.querySelectorAll('.custom-dropdown .dropdown-menu').forEach(function(menu) {
+                menu.classList.remove('show');
+            });
+            document.querySelectorAll('.custom-dropdown-toggle').forEach(function(t) {
+                t.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
 });
 </script>
 @endsection

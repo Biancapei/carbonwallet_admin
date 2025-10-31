@@ -29,4 +29,17 @@ class HomeController extends Controller
 
         return view('article', compact('blog', 'relatedBlogs'));
     }
+
+    public function blogs()
+    {
+        $blogs = Blog::published()->with('user')->latest()->paginate(4);
+
+        // Get blogs filtered by category for each tab
+        $carbonAccountingBlogs = Blog::published()->with('user')->where('category', 'carbon-accounting')->latest()->get();
+        $hospitalityBlogs = Blog::published()->with('user')->where('category', 'hospitality')->latest()->get();
+        $netZeroBlogs = Blog::published()->with('user')->where('category', 'net-zero')->latest()->get();
+        $regulationsBlogs = Blog::published()->with('user')->where('category', 'regulations')->latest()->get();
+
+        return view('blog', compact('blogs', 'carbonAccountingBlogs', 'hospitalityBlogs', 'netZeroBlogs', 'regulationsBlogs'));
+    }
 }

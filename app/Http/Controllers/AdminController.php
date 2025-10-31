@@ -25,12 +25,17 @@ class AdminController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
+            'category' => 'nullable|string|in:carbon-accounting,hospitality,net-zero,regulations',
+            'blog_status' => 'required|string|in:draft,published,deleted',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_published' => 'boolean'
+            'is_published' => 'boolean',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:255'
         ]);
 
-        $data = $request->only(['title', 'description', 'content', 'is_published']);
+        $data = $request->only(['title', 'description', 'category', 'blog_status', 'content', 'is_published', 'meta_title', 'meta_description', 'meta_keywords']);
         $data['user_id'] = auth()->id();
         $data['slug'] = Str::slug($request->title);
 
@@ -61,16 +66,21 @@ class AdminController extends Controller
     {
         try {
             $blog = Blog::findOrFail($id);
-            
+
             $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'nullable|string|max:255',
+                'category' => 'nullable|string|in:carbon-accounting,hospitality,net-zero,regulations',
+                'blog_status' => 'required|string|in:draft,published,deleted',
                 'content' => 'required|string',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'is_published' => 'boolean'
+                'is_published' => 'boolean',
+                'meta_title' => 'nullable|string|max:255',
+                'meta_description' => 'nullable|string|max:500',
+                'meta_keywords' => 'nullable|string|max:255'
             ]);
 
-            $data = $request->only(['title', 'description', 'content', 'is_published']);
+            $data = $request->only(['title', 'description', 'category', 'blog_status', 'content', 'is_published', 'meta_title', 'meta_description', 'meta_keywords']);
             $data['slug'] = Str::slug($request->title);
 
             // Handle image upload
@@ -98,7 +108,7 @@ class AdminController extends Controller
     {
         try {
             $blog = Blog::findOrFail($id);
-            
+
             // Delete image if exists
             if ($blog->image) {
                 Storage::disk('public')->delete($blog->image);

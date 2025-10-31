@@ -73,10 +73,8 @@
         </div>
     @else
         <div style="text-align: center; padding: 60px 20px;">
-            <i class="fas fa-blog" style="font-size: 48px; color: #d1d5db; margin-bottom: 20px;"></i>
             <h3 style="font-size: 18px; font-weight: 600; color: #374151; margin-bottom: 8px;">No blog posts</h3>
             <p style="color: #6b7280; margin-bottom: 24px;">Get started by creating a new blog post.</p>
-            <a href="{{ route('admin.create') }}" style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; display: inline-block;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
                 Create your first blog post
             </a>
         </div>
