@@ -1,0 +1,167 @@
+{
+    "organization_id": "demo-org-001",
+    "reporting_period_start": "2024-01-01T00:00:00Z",
+    "reporting_period_end": "2024-12-31T23:59:59Z",
+    "last_updated": "2024-12-15T10:30:00Z",
+    "emissions_by_scope": {
+        "scope1_tco2e": 24.75,
+        "scope2_tco2e": 90.35,
+        "scope3_tco2e": 1194.50,
+        "total_tco2e": 1309.6,
+        "scope1_pct": 1.9,
+        "scope2_pct": 6.9,
+        "scope3_pct": 91.2
+    },
+    "trend_vs_target": {
+      "current_year": 2024,
+      "years": [
+        {
+          "year": 2023,
+          "baseline_tco2e": 3000.0,
+          "target_tco2e": null,
+          "actual_tco2e": 3000.0,
+          "target_reduction_pct": null,
+          "actual_vs_target_pct": null,
+          "performance_status": null
+        },
+        {
+          "year": 2024,
+          "baseline_tco2e": 3000.0,
+          "target_tco2e": 1250.0,
+          "actual_tco2e": 1309.6,
+          "target_reduction_pct": -12.0,
+          "actual_vs_target_pct": 4.8,
+          "performance_status": "above target"
+        }
+      ]
+    },
+    "emissions_by_category": [
+        {
+        "category_name": "Purchased Goods",
+        "scope": "3",
+        "tco2e": 358.4,
+        "pct_of_total": 27.3
+        },
+        {
+        "category_name": "Business Travel",
+        "scope": "3",
+        "tco2e": 238.9,
+        "pct_of_total": 18.2
+        },
+        {
+        "category_name": "Capital Goods",
+        "scope": "3",
+        "tco2e": 179.2,
+        "pct_of_total": 13.7
+        },
+        {
+        "category_name": "Employee Commuting",
+        "scope": "3",
+        "tco2e": 143.3,
+        "pct_of_total": 10.9
+        },
+        {
+        "category_name": "Waste",
+        "scope": "3",
+        "tco2e": 119.5,
+        "pct_of_total": 9.1
+        },
+        {
+        "category_name": "Purchased Electricity",
+        "scope": "2",
+        "tco2e": 72.3,
+        "pct_of_total": 5.5
+        },
+        {
+        "category_name": "Fleet Vehicles",
+        "scope": "1",
+        "tco2e": 9.9,
+        "pct_of_total": 0.8
+        },
+        {
+        "category_name": "Heating & Cooling",
+        "scope": "2",
+        "tco2e": 7.4,
+        "pct_of_total": 0.6
+        }
+    ],
+    "top_emitting_sources": [
+        {
+        "source_name": "ABC Partner",
+        "scope": "3",
+        "category": "Capital Goods",
+        "tco2e": 179.2,
+        "pct_of_total": 13.7
+        },
+        {
+        "source_name": "Business Travel - Flights",
+        "scope": "3",
+        "category": "Business Travel",
+        "tco2e": 143.3,
+        "pct_of_total": 10.9
+        },
+        {
+        "source_name": "Freight & Logistics",
+        "scope": "3",
+        "category": "Waste",
+        "tco2e": 119.5,
+        "pct_of_total": 9.1
+        },
+        {
+        "source_name": "Employee Commuting - Cars",
+        "scope": "3",
+        "category": "Employee Commuting",
+        "tco2e": 95.6,
+        "pct_of_total": 7.3
+        },
+        {
+        "source_name": "Main Office",
+        "scope": "2",
+        "category": "Purchased Electricity",
+        "tco2e": 40.7,
+        "pct_of_total": 3.1
+        },
+        {
+        "source_name": "Factory A",
+        "scope": "1",
+        "category": "Stationary Combustion",
+        "tco2e": 22.6,
+        "pct_of_total": 1.7
+        },
+        {
+        "source_name": "Fleet Vehicles - Delivery",
+        "scope": "1",
+        "category": "Mobile Combustion",
+        "tco2e": 8.7,
+        "pct_of_total": 0.7
+        },
+        {
+        "source_name": "Natural Gas Boiler",
+        "scope": "1",
+        "category": "Stationary Combustion",
+        "tco2e": 6.9,
+        "pct_of_total": 0.5
+        },
+        {
+        "source_name": "Warehouse B",
+        "scope": "2",
+        "category": "Purchased Electricity",
+        "tco2e": 4.5,
+        "pct_of_total": 0.3
+        },
+        {
+        "source_name": "Refrigeration System",
+        "scope": "1",
+        "category": "Fugitive Emissions",
+        "tco2e": 3.0,
+        "pct_of_total": 0.2
+        }
+    ],
+    "metadata": {
+        "data_source": "mock",
+        "gwp_set": "AR6",
+        "note": "This is sample data for frontend development"
+    }
+
+  }
+

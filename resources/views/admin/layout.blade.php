@@ -26,9 +26,13 @@
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
-            <a href="{{ route('admin.index') }}" class="nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.index') }}" class="nav-item {{ request()->routeIs('admin.index') || request()->routeIs('admin.create') || request()->routeIs('admin.edit') ? 'active' : '' }}">
                 <i class="fas fa-blog"></i>
                 <span>Blogs</span>
+            </a>
+            <a href="{{ route('chart') }}" class="nav-item {{ request()->routeIs('chart') ? 'active' : '' }}">
+                <i class="fas fa-chart-bar"></i>
+                <span>Chart</span>
             </a>
         </nav>
 

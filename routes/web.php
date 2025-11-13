@@ -36,6 +36,11 @@ Route::post('/logout', function (\Illuminate\Http\Request $request) {
     return redirect('/');
 })->name('logout');
 
+// Chart route (protected by auth middleware)
+Route::middleware(['auth'])->get('/chart', function () {
+    return view('chart');
+})->name('chart');
+
 // Admin routes (protected by auth middleware)
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
